@@ -1,4 +1,6 @@
 ### 导航
+#### 数据结构
+- 数据结构
 #### 基础
 - [java基础](src/docs/java基础.md)
 - [并发编程](src/docs/并发编程.md)
@@ -11,6 +13,8 @@
 - [dubbo](src/docs/dubbo.md)
 #### 中间件
 - [redis](src/docs/Redis.md)
-- [消息队列](src/docs/消息队列.md)
+- [kafka](src/docs/kafka.md)
+- Es
+- zookeeper
 #### 解决方案
 - [分布式](src/docs/分布式.md)

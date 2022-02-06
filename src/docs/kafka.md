@@ -133,5 +133,5 @@ https://zhuanlan.zhihu.com/p/98770059?from_voters_page=true
 ![img](../img/消息队列/b15aca44.png)
 ![img](../img/消息队列/46d9f597.png)
 ##### Q10:简述kafka 架构设计
-cnblogs.com/clawhub/p/11973407.html
+https://www.cnblogs.com/clawhub/p/11973407.html
 ![img](../img/消息队列/0e1f2131.png)
