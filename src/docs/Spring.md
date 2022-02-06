@@ -1,58 +1,58 @@
 # Spring
 ### SpringCloud组件
 ![Img](../img/spring/894cf127.png)
-注册中心,服务发现-Netflix Eureka
-客服端负载均衡-Netflix Ribbon
-容错管理工具-Netflix Hystrix
-服务网关-Netflix Zuul,提供动态路由,监控,弹性,安全等边缘服务.
-分布式配置-Spring Cloud Config
+- 注册中心,服务发现-Netflix Eureka
+- 客服端负载均衡-Netflix Ribbon
+- 容错管理工具-Netflix Hystrix
+- 服务网关-Netflix Zuul,提供动态路由,监控,弹性,安全等边缘服务.
+- 分布式配置-Spring Cloud Config
 ### SpringMvc
 1. 工作流程
 ![Img](../img/spring/b9243dac.png)
 2. 九大组件
-1.HandlerMapping
-根据request找到相应的处理器。因为Handler（Controller）有两种形式，一种是基于类的Handler，另一种是基于Method的Handler（也就是我们常用的）
-2.HandlerAdapter
-调用Handler的适配器。如果把Handler（Controller）当做工具的话，那么HandlerAdapter就相当于干活的工人
-3.HandlerExceptionResolver
-对异常的处理
-4.ViewResolver
-用来将String类型的视图名和Locale解析为View类型的视图
-5.RequestToViewNameTranslator
-有的Handler（Controller）处理完后没有设置返回类型，比如是void方法，这是就需要从request中获取viewName
-6.LocaleResolver
-从request中解析出Locale。Locale表示一个区域，比如zh-cn，对不同的区域的用户，显示不同的结果，这就是i18n（SpringMVC中有具体的拦截器LocaleChangeInterceptor）
-7.ThemeResolver
-主题解析，这种类似于我们手机更换主题，不同的UI，css等
-8.MultipartResolver
-处理上传请求，将普通的request封装成MultipartHttpServletRequest
-9.FlashMapManager
-用于管理FlashMap，FlashMap用于在redirect重定向中传递参数
+    1. HandlerMapping
+    根据request找到相应的处理器。因为Handler（Controller）有两种形式，一种是基于类的Handler，另一种是基于Method的Handler（也就是我们常用的）
+    2. HandlerAdapter
+    调用Handler的适配器。如果把Handler（Controller）当做工具的话，那么HandlerAdapter就相当于干活的工人
+    3. HandlerExceptionResolver
+    对异常的处理
+    4. ViewResolver
+    用来将String类型的视图名和Locale解析为View类型的视图
+    5. RequestToViewNameTranslator
+    有的Handler（Controller）处理完后没有设置返回类型，比如是void方法，这是就需要从request中获取viewName
+    6. LocaleResolver
+    从request中解析出Locale。Locale表示一个区域，比如zh-cn，对不同的区域的用户，显示不同的结果，这就是i18n（SpringMVC中有具体的拦截器LocaleChangeInterceptor）
+    7. ThemeResolver
+    主题解析，这种类似于我们手机更换主题，不同的UI，css等
+    8. MultipartResolver
+    处理上传请求，将普通的request封装成MultipartHttpServletRequest
+    9. FlashMapManager
+    用于管理FlashMap，FlashMap用于在redirect重定向中传递参数
 
 ### Spring
 #### Q0. Spring的核心
 IOC:控制反转,原来我们使用对象是由使用者控制的,有了Spring了之后,可以将整个对象
-交给容器来帮助我们管理.
-容器:存储对象,使用map结构存储对象,在spring中存储对象有三级缓存
-一级缓存singletonObjects存放完整对象 
-二级缓存earlySingletonObjects存放半成品对象
-三级缓存singletonFactory用来存放lambda表达式和对象名称的映射
-整个bean的生命周期,从创建到销毁,都是由容器来帮我们实现的.
+交给容器来帮助我们管理.</br>
+容器:存储对象,使用map结构存储对象,在spring中存储对象有三级缓存</br>
+一级缓存singletonObjects存放完整对象 </br>
+二级缓存earlySingletonObjects存放半成品对象</br>
+三级缓存singletonFactory用来存放lambda表达式和对象名称的映射</br>
+整个bean的生命周期,从创建到销毁,都是由容器来帮我们实现的.</br>
 DI:依赖注入,将对应的属性注入到对象中;常用@Autowired,@Resource,
-populateBean方法来完成属性注入
+populateBean方法来完成属性注入</br>
 AOP:面向切面编程
-- 代理模式:为其他对象提供一种代码以控制对这个对象的访问
+- 代理模式:为其他对象提供一种代码以控制对这个对象的访问</br>
 比如A对象要做一件事情，在没有代理前，自己来做，在对A代理后，由A的代理类B来做。代理其实是在原实例前后加了一层处理
-- 静态代理:在程序运行前就已经存在代理类的字节码文件，代理类和原始类的关系在运行前就已经确定。
+- 静态代理:在程序运行前就已经存在代理类的字节码文件，代理类和原始类的关系在运行前就已经确定。</br>
 代理对象的一个借口只服务于一种类型的对象,如果要代理的方法很多,就需要对每种方法都进行代理.
-- 动态代理:在程序运行期间通过jvm反射等机制动态生产;代理类和委托类的关系是运行时才确定的.
-Spring AOP就是基于动态代理的，如果要代理的对象，实现了某个接口，那么Spring AOP会使用JDK Proxy;否则使用Cglib
-使用jdk生成的动态代理的前提是目标类必须有**实现的接口**。
-**Cglib**是以动态生成的**子类继承**目标的方式实现，在运行期动态的在内存中构建一个子类
+- 动态代理:在程序运行期间通过jvm反射等机制动态生产;代理类和委托类的关系是运行时才确定的.</br>
+Spring AOP就是基于动态代理的，如果要代理的对象，实现了某个接口，那么Spring AOP会使用JDK Proxy;否则使用Cglib</br>
+使用jdk生成的动态代理的前提是目标类必须有**实现的接口**。</br>
+**Cglib**是以动态生成的**子类继承**目标的方式实现，在运行期动态的在内存中构建一个子类</br>
 `public class UserDao{}
 //Cglib是以动态生成的子类继承目标的方式实现,程序执行时,隐藏了下面的过程
 public class $Cglib_Proxy_class  extends UserDao{}`
-Cglib使用的前提是目标类不能为final修饰。因为final修饰的类不能被继承。
+Cglib使用的前提是目标类不能为final修饰。因为final修饰的类不能被继承。</br>
 AOP的作用:可以分离业务代码和关注点代码（重复代码），在执行业务代码时，动态的注入关注点代码。切面就是关注点代码形成的类。
 #### Q1. Spring的bean的生命周期
 ![Img](../img/spring/9dc2d985.png)
@@ -94,10 +94,10 @@ ApplicationContext，它是在容器启动时，一次性创建了所有的Bean�
 - session:与request类似,确保每一个session中有一个bean实例,在session过期后,bean随之失效
 - global-sessiion:全局作用域
 #### Q6.Spring框架中的单例bean是线程安全的么?
-不是,Spring框架中的单例Bean不是线程安全的
-Spring中的Bean默认是单例模式,Spring框架并没有对单例bean进行多线程的封装处理.
+不是,Spring框架中的单例Bean不是线程安全的</br>
+Spring中的Bean默认是单例模式,Spring框架并没有对单例bean进行多线程的封装处理.</br>
 实际大部分使用过程中的spring bean是无状态的(eg:dao类),所以某种程度上来说也是安全的,
-但是如果bean有状态的话,就需要开发者自己保证线程安全了
+但是如果bean有状态的话,就需要开发者自己保证线程安全了</br>
 最简单的方式就是改变bean的作用域,singleton->prototype,这样请求bean相当于new Bean()了,所以就可以保证线程安全了
 #### Q7.什么是bean装配，spring 自动装配 bean 有哪些方式？
 装配或者Bean装配,就是指在Spring容器中把bean组装到一起,前提是容器需要知道bean的依赖关系,如何通过依赖注入来把它们装配到一起.
@@ -139,10 +139,12 @@ FactoryBean在接口中包含了三个方法
 1. A依赖B,B依赖A
 1. A依赖B,B依赖C,C依赖A
 1. A依赖A
-简言之，两个池子：一个成品池子，一个半成品池子。能解决循环依赖的前提是：spring开启了allowCircularReferences，那么一个正在被创建的bean才会被放在半成品池子里。在注入bean，向容器获取bean的时候，优先向成品池子要，要不到，再去向半成品池子要。
-出现循环依赖一定是你的业务设计有问题。高层业务和底层业务的划分不够清晰，一般，业务的依赖方向一定是无环的，有环的业务，在后续的维护和拓展一定非常鸡肋
+
+简言之，两个池子：一个成品池子，一个半成品池子。能解决循环依赖的前提是：spring开启了allowCircularReferences，那么一个正在被创建的bean才会被放在半成品池子里。在注入bean，向容器获取bean的时候，优先向成品池子要，要不到，再去向半成品池子要。</br>
+出现循环依赖一定是你的业务设计有问题。高层业务和底层业务的划分不够清晰，一般，业务的依赖方向一定是无环的，有环的业务，在后续的维护和拓展一定非常鸡肋</br>
 存放在二级缓存中的是objectFactory而不是直接是Object的原因:
-利于拓展，程序员可以通过beanPostProcess接口操作objectFactory对象生成自己想要的对象
+利于拓展，程序员可以通过beanPostProcess接口操作objectFactory对象生成自己想要的对象</br>
+
 无法解决循环依赖的场景
 1. 对象作用域为单例的时候不能解决循环依赖,原因:因为单例是spring在启动时进行bean加载放入单例池中，在依赖的bean开始生命周期后，可以直接从二级缓存中取到它所依赖的bean的objectFactory对象从而结束循环依赖。而原型只有在用到时才会走生命周期流程，但是原型不存在一个已经实例化好的bean，所以会无限的创建-依赖-创建-依赖
 1. 不支持通过构造方法进行注入(通过构造方法创建的时候对象还未实例化)
