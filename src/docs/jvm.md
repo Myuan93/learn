@@ -152,7 +152,26 @@ CMS特点：并发收集，低停顿。
 ![Img](../img/jvm/7604d576.png)
 ![Img](../img/jvm/fe44ea7d.png)
 ![Img](../img/jvm/1f031cb9.png)
+   
+三色标记时产生漏标的条件有两个：
+1. 黑色对象指向了白色对象
+2. 灰色对象指向白色对象的引用消失
+
+要解决漏标问题，打破两个条件之一即可：
+1. 跟踪黑指向白的增加 incremental update：增量更新，关注引用的增加，把黑色重新标记为灰色，下次重新扫描属性。CMS采用该方法。
+2. 记录灰指向白的消失 SATB snapshot at the beginning：关注引用的删除，当灰-->白消失时，要把这个 引用 推到GC的堆栈，保证白还能被GC扫描到。G1采用该方法。
+
+**为什么G1采用SATB而不用incremental update？**
+因为采用incremental update把黑色重新标记为灰色后，之前扫描过的还要再扫描一遍，效率太低。
+
+G1有RSet与SATB相配合。Card Table里记录了RSet，RSet里记录了其他对象指向自己的引用，这样就不需要再扫描其他区域，只要扫描RSet就可以了。
+
+也就是说 灰色-->白色 引用消失时，如果没有 黑色-->白色，引用会被push到堆栈，下次扫描时拿到这个引用，由于有RSet的存在，不需要扫描整个堆去查找指向白色的引用，效率比较高。SATB配合RSet浑然天成。
+
+
 - G1(JDK1.9默认,年轻代老年代通吃)
+
+https://www.jianshu.com/p/5116a7acb866 </br>
 开启方式`-XX:+UseG1GC -XX:MaxGCPauseMillis=200`
 ![Img](../img/jvm/e8b07148.png)
 Humongous区域:如果一个对象占用的空间超过了分区容量50%以上，G1收集器就认为这是一个巨型对象。
