@@ -58,7 +58,7 @@ AOP的作用:可以分离业务代码和关注点代码（重复代码），在�
 ![Img](../img/spring/9dc2d985.png)
 对象生成:createBeanInstance - > populateBean -> invokeAwareMethods -> BeanPostProcessor前置处理方法 -> invokeInitMethods -> BeanPostProcessor后置处理方法
 对象销毁:DisposableBean.destroy() -> destroyMethod
-1. 实例化Beana对象,通过反射的方式来生成.在源码中有一个createBeanInstance的方法是专门来生成对象的.
+1. 实例化Bean对象,通过反射的方式来生成.在源码中有一个createBeanInstance的方法是专门来生成对象的.
 1. 设置对象属性(依赖注入):当对象创建完成后,对象的属性值都是默认值,所以要开始给bean填充属性,通过populateBean方法来完成对象属性的填充
 1. 向bean对象中设置容器属性(eg:BeanFactory,ApplicationContext),调用invokeAwareMethods方法来将容器对象设置到具体的bean对象中
 1. 调用BeanPostProcessor中的前置处理方法来进行bean对象的扩展工作,eg:ApplicationContextPostProcessor,EmbeddValueResolver等对象
@@ -152,4 +152,16 @@ FactoryBean在接口中包含了三个方法
 ![Img](../img/spring/8255877d.png)
 ![Img](../img/spring/6b80b834.png)
 
+#### Q12.Spring boot和Spring mvc的区别
+
+#### Q13.Spring boot自动配置原理
+**约定大于配置**
+
+@SpringBootApplication等同于下面三个注解：
+
+- @SpringBootConfiguration：我们点进去以后可以发现底层是Configuration注解，说白了就是支持JavaConfig的方式来进行配置(使用Configuration配置类等同于XML文件)。
+- @EnableAutoConfiguration：开启自动配置功能(后文详解)
+- @ComponentScan：扫描注解，默认是扫描当前类下的package。将@Controller/@Service/@Component/@Repository等注解加载到IOC容器中。
+
+其中@EnableAutoConfiguration是关键(启用自动配置)，内部实际上就去加载META-INF/spring.factories文件的信息，然后筛选出以EnableAutoConfiguration为key的数据，加载到IOC容器中，实现自动配置功能！
 
