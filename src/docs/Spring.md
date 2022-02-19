@@ -152,8 +152,12 @@ FactoryBean在接口中包含了三个方法
 ![Img](../img/spring/8255877d.png)
 ![Img](../img/spring/6b80b834.png)
 
-#### Q12.Spring boot和Spring mvc的区别
+#### Q12.Spring boot启动的原理
+1. SpringBoot 在启动时会去依赖的 Starter 包中寻找 resources/META-INF/spring.factories 文件，然后根据文件中配置的 Jar 包去扫描项目所依赖的 Jar 包。
+2. 根据 spring.factories 配置加载 AutoConfigure 类
+3. 根据 @Conditional 注解的条件，进行自动配置并将 Bean 注入 Spring Context 
 
+SpringBoot 在启动的时候，按照约定去读取 SpringBoot Starter 的配置信息，再根据配置信息对资源进行初始化，并注入到 Spring 容器中。这样 SpringBoot 启动完毕后，就已经准备好了一切资源，使用过程中直接注入对应 Bean 资源即可。
 #### Q13.Spring boot自动配置原理
 **约定大于配置**
 
@@ -164,4 +168,18 @@ FactoryBean在接口中包含了三个方法
 - @ComponentScan：扫描注解，默认是扫描当前类下的package。将@Controller/@Service/@Component/@Repository等注解加载到IOC容器中。
 
 其中@EnableAutoConfiguration是关键(启用自动配置)，内部实际上就去加载META-INF/spring.factories文件的信息，然后筛选出以EnableAutoConfiguration为key的数据，加载到IOC容器中，实现自动配置功能！
+#### Q14.Spring boot两大核心配置
+SpringBoot 的核心配置文件是 application 和 bootstrap 配置文件。</br>
+application.properties 可以配置队列，项目启动端口、hdfs配置</br>
+bootstrap使用 Spring Cloud Config 配置中心时，这时需要在 bootstrap 配置文件中添加连接到配置中心的配置属性来加载外部配置中心的配置信息；
+一些固定的不能被覆盖的属性；
+一些加密/解密的场景；
+#### Q15.Spring boot加载顺序
+由jar包外向jar包内进行寻找; 优先加载带profile,再来加载不带profile
+1. jar包外部的application-{profile}.properties或application.yml(带spring.profile配置文件
+2. jar包内部的application-{profile}.properties或application.yml(带spring.profile配置文件
+3. jar包外部的application.properties或application.yml(不带spring.profile配置文件
+4. jar包内部的application.properties或application.yml(不带spring.profile配置文件
+#### Q16 使用过哪些Spring boot start
+![img.png](../img/spring/springbootstart.png)
 
