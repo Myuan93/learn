@@ -76,6 +76,19 @@ Flink 通过实现两阶段提交和状态保存来实现端到端的一致性�
 Flink 中的水印有两种：
 - 周期生成水印 AssignerWithPeriodicWatermarks，周期默认的时间是 200ms；
 - 按需要生成水印 PunctuatedWatermark，它适用于根据接收到的消息判断是否需要产生水印。
+
+Flink如何处理乱序？
+
+watermark+window机制，window中可以对input进行按照Event Time排序，使得完全按照Event Time发生的顺序去处理数据，以达到处理乱序数据的目的。
+
+Flink何时触发window？
+1. watermark时间 >= window_end_time（对于out-of-order以及正常的数据而言）
+2. 在[window_start_time,window_end_time)中有数据存在
+
+Flink应该如何设置最大乱序时间？
+
+这个要结合自己的业务以及数据情况去设置。如果maxOutOfOrderness设置的太小，而自身数据发送时由于网络等原因导致乱序或者late太多，那么最终的结果就是会有很多单条的数据在window中被触发，数据的正确性影响太大。
+
 #### Q10  Flink 窗口类型
 根据窗口数据划分的不同，目前 Flink 支持如下 3 种：
 - 滚动窗口，窗口数据有固定的大小，窗口中的数据不会叠加；
