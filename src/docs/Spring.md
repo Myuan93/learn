@@ -126,6 +126,11 @@ Spring切面可以应用5种类型的通知：
 @Controller：这将一个类标记为 Spring Web MVC 控制器。标有它的 Bean 会自动导入到 IoC 容器中。
 @Service：此注解是组件注解的特化。它不会对 @Component 注解提供任何其他行为。您可以在服务层类中使用 @Service 而不是 @Component，因为它以更好的方式指定了意图。
 @Repository：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。
+
+@resource @autowired的区别：
+1. @Autowired与@Resource都可以用来装配bean，都可以写在字段或setter方法上
+2. @Autowired默认按**类型**装配，默认情况下必须要求依赖对象存在，如果要允许null值，可以设置它的required属性为false。如果想**使用名称装配**可以**结合@Qualifier注解**进行使用。
+3. @Resource，默认按照**名称**进行装配，名称可以通过name属性进行指定，如果没有指定name属性，当注解写在字段上时，默认取字段名进行名称查找。如果注解写在setter方法上默认取属性名进行装配。当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。
 #### Q10.BeanFactory与FactoryBean的区别
 BeanFactory与FactoryBean都可以用来创建对象,只不过创建对象的流程不同.
 BeanFactory创建对象必须严格遵守bean的生命周期,经过一系列复杂的步骤之后才能完成创建

@@ -148,6 +148,13 @@ JDK8中ConcurrentHashMap参考了JDK8 HashMap的实现，采用了数组+链表+
 是已经简化了属性，只是为了兼容旧版本；
 DK1.8的Nod节点中value和next都用volatile修饰，保证并发的可见性。
 可以理解为，synchronized 只锁定当前链表或红⿊⼆叉树的⾸节点，这样只要 hash 不冲突，就不会产⽣并发，效率⼜提升 N 倍。
+#### Q3 hashMap能否被序列化的问题
+hashMap实现了Serializable接口，可以被序列化；</br>
+但是它的成员变量`transient Node<K,V>[] table`被`transient`修饰，序列化的时候会被忽略</br>
+不直接序列化table的原因：
+1. table多数情况下是无法被存满的，序列化未使用的部分，浪费空间
+2. 同一个键值对在不同 JVM 下，所处的桶位置可能是不同的，在不同的 JVM 下反序列化 table 可能会发生错误。(Object 中的 hashCode 方法是 native 型的，不同的 JVM 下，可能会有不同的实现)
+hashMap使用了writeObject和readObject来进行序列化
 ![Img](../img/java基础/d1f4d3bc.png)
 ### 设计模式
 ![Img](../img/java基础/e7613822.png)
