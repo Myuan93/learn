@@ -187,4 +187,15 @@ bootstrap使用 Spring Cloud Config 配置中心时，这时需要在 bootstrap 
 4. jar包内部的application.properties或application.yml(不带spring.profile配置文件
 #### Q16 使用过哪些Spring boot start
 ![img.png](../img/spring/springbootstart.png)
+#### Q17 spring boot如何增加配置
+https://zhuanlan.zhihu.com/p/57693064
+1. 配置文件：
+    - application.properties
+    - application.yml
+2. 配置注解：
+   - 配置对象
+   `@Configuration
+   @ConfigurationProperties(prefix = "person")`
+   - 配置数值 `@Value("${kafka.cluster.config.marketing.opt.rebate.calc}")`
+    
 
